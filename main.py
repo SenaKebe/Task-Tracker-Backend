@@ -39,3 +39,6 @@ def create_task(task: TaskBase):
     tasks.append(new_task)
     next_id += 1
     return new_task
+@app.get("/tasks", response_model=List[Task])
+def get_tasks():
+    return tasks
