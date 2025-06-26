@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from enum import Enum
 from pydantic import BaseModel, Field
+from typing import Optional
 
 
 app = FastAPI(title="Task Manager API")
@@ -21,3 +22,13 @@ class TaskBase(BaseModel):
     description: Optional[str] = Field(default=None, title="Description", example="Write about FastAPI")
     status: StatusEnum = Field(..., title="Status", example="pending")
     priority: PriorityEnum = Field(..., title="Priority", example="high")
+
+
+
+class Task(TaskBase):
+    id: int
+
+# In-memory "database"
+tasks: List[Task] = []
+next_id = 1
+
