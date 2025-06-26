@@ -32,3 +32,10 @@ class Task(TaskBase):
 tasks: List[Task] = []
 next_id = 1
 
+@app.post("/tasks", response_model=Task, status_code=201)
+def create_task(task: TaskBase):
+    global next_id
+    new_task = Task(id=next_id, **task.dict())
+    tasks.append(new_task)
+    next_id += 1
+    return new_task
