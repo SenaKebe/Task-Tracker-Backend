@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from enum import Enum
 from pydantic import BaseModel, Field
 from typing import Optional
+from fastapi import HTTPException
 
 
 app = FastAPI(title="Task Manager API")
@@ -42,3 +43,13 @@ def create_task(task: TaskBase):
 @app.get("/tasks", response_model=List[Task])
 def get_tasks():
     return tasks
+
+@app.put("/tasks/{task_id}", response_model=Task)
+def update_task(task_id: int, updated_task: TaskBase):
+    for i, t in enumerate(tasks):
+        if t.id == task_id:
+            tasks[i] = Task(id=task_id, **updated_task.dict())
+            return tasks[i]
+    raise HTTPException(status_code=404, detail="Task not found")
+
+
