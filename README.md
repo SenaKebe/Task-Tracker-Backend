@@ -20,3 +20,5 @@ A simple FastAPI backend to manage to-do tasks for freelancers.
    git clone https://github.com/yourusername/task-manager-api.git
    cd task-manager-api
    ```
+   How to run
+   `uvicorn main:app --reload `
